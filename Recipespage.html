@@ -1,0 +1,169 @@
+<?php
+   include('session.php');
+?>
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      table, th, td {
+        border:1px solid black;
+      }
+      .header {
+      padding: 60px;
+      text-align: center;
+      background: #1abc9c;
+      color: white;
+      font-size: 30px;
+    }
+      footer {
+        position: absolute;
+  bottom: 0;
+  width: 100%;
+  height:5rem;
+    text-align: center;
+  padding:30px;
+  background-color: DarkSalmon;
+  color: white;
+}
+
+      </style>
+        <title>Recipes page</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>  
+    <article>
+      <div class="header">
+        <header>
+        <h1>Recipe Page</h1>
+        </header>
+      </article>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<h1 >
+  Recipes page 
+  <?php echo $login_session; ?>
+</h1>
+<h1>Welcome <?php echo $login_session; ?></h1> 
+<td><input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."></td>
+
+<table id="ceo"  style="width:100%">  
+  <thead>  
+      <tr>  
+          <th title="Name" style="color:rgb(0, 255, 0);"> be careful!!! click here to sort </th>             
+      </tr>  
+
+      <tr>
+        
+      <td style="color:rgb(255, 0, 0);" >Recipe Name</td>
+    <td style="color:rgb(255, 0, 0);" >Country</td>
+    <td style="color:rgb(255, 0, 0);" >writer</td>
+
+    <td style="color:rgb(255, 0, 0);" >Date</td>
+      </tr>
+  </thead>  
+  <tbody>  
+<tr>  
+  <td>   
+    <a href="recipe.html" >bvocado</a>
+
+  </td>
+  <td>Italy</td>
+  <td>johnny grey</td>
+
+  <td>10/4/2022</td>
+      </tr>  
+      <tr>  
+        <td>aomatto soap</td>
+        <td>German</td>
+        <td>charlie chaplin</td>
+
+        <td>10/4/2022</td> 
+      </tr>  
+     
+  </tbody>  
+</table> 
+<h2><a href = "logout.php">Sign Out</a></h2>            
+<footer>
+  <p>Author: Wajd nmrat--emad jamalyeh<br>
+  <a href="Nmrat--jamalyeh@univHaifa.com">Nmrat-jamalyeh@UnivHaifa.com</a></p>
+</footer> 
+  </body>
+  <style>
+  #myInput {
+    background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+  }
+  </style>
+  
+
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"> </script>    
+ <script>    
+           $(function () {  
+  $('table')  
+    .on('click', 'th', function () {  
+      var index = $(this).index(),  
+          rows = [],  
+          thClass = $(this).hasClass('asc') ? 'desc' : 'asc';  
+      $('#ceo th').removeClass('asc desc');  
+      $(this).addClass(thClass);  
+      $('#ceo tbody tr').each(function (index, row) {  
+        rows.push($(row).detach());  
+      });  
+      rows.sort(function (a, b) {  
+        var aValue = $(a).find('td').eq(index).text(),  
+            bValue = $(b).find('td').eq(index).text();  
+        return aValue > bValue  
+             ? 1  
+             : aValue < bValue  
+             ? -1  
+             : 0;  
+      });  
+      if ($(this).hasClass('desc')) {  
+        rows.reverse();  
+      }  
+      $.each(rows, function (index, row) {  
+        $('#ceo tbody').append(row);  
+      });  
+    });  
+});  
+
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("ceo");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+ </script>
